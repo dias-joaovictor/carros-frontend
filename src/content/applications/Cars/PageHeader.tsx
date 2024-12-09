@@ -1,12 +1,16 @@
 import { Typography, Button, Grid } from '@mui/material';
-
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
-function PageHeader() {
+interface PageHeaderProps {
+  onAddCar?: () => void;
+}
+
+function PageHeader({ onAddCar }: PageHeaderProps) {
   const user = {
     name: 'Catherine Pike',
     avatar: '/static/images/avatars/1.jpg'
   };
+
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
@@ -22,6 +26,7 @@ function PageHeader() {
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
+          onClick={onAddCar}
         >
           Include Car
         </Button>
