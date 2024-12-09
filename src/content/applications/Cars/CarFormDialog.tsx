@@ -7,23 +7,16 @@ import {
   Button,
   TextField,
   Grid,
-  Snackbar,
-  Alert
 } from '@mui/material';
 import { Carro } from 'src/models/Carro';
 import { carroService } from 'src/services/CarroService';
+import { useToast } from '../../../components/Toast';
 
 interface CarFormDialogProps {
   open: boolean;
   onClose: () => void;
   onCarSaved: () => void;
   car?: Carro; // If provided, we are editing this car; if not, creating a new one.
-}
-
-interface ToastState {
-  open: boolean;
-  message: string;
-  severity: 'success' | 'error' | 'warning' | 'info';
 }
 
 const CarFormDialog: FC<CarFormDialogProps> = ({ open, onClose, onCarSaved, car }) => {
@@ -40,12 +33,7 @@ const CarFormDialog: FC<CarFormDialogProps> = ({ open, onClose, onCarSaved, car 
   const [originalData, setOriginalData] = useState<Carro>(formData);
   const [isFormChanged, setIsFormChanged] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
-
-  const [toast, setToast] = useState<ToastState>({
-    open: false,
-    message: '',
-    severity: 'success',
-  });
+  const { showToast } = useToast();
 
   // Update form data when 'car' prop changes
   useEffect(() => {
@@ -98,25 +86,13 @@ const CarFormDialog: FC<CarFormDialogProps> = ({ open, onClose, onCarSaved, car 
     saveOperation
       .then(() => {
         onCarSaved();
-        setToast({
-          open: true,
-          message: `Car ${formData.id ? 'updated' : 'saved'} successfully!`,
-          severity: 'success',
-        });
+        showToast(`Car ${formData.id ? 'updated' : 'saved'} successfully!`, 'success')
         onClose();
       })
       .catch((error) => {
         console.error('Failed to save car:', error);
-        setToast({
-          open: true,
-          message: 'Failed to save car. Please try again.',
-          severity: 'error',
-        });
+        showToast('Failed to save car. Please try again.', 'error')
       });
-  };
-
-  const handleCloseToast = () => {
-    setToast({ ...toast, open: false });
   };
 
   const handleFormSubmit = (event: FormEvent) => {
@@ -229,18 +205,6 @@ const CarFormDialog: FC<CarFormDialogProps> = ({ open, onClose, onCarSaved, car 
           </Button>
         </DialogActions>
       </Dialog>
-
-      {/* Toast Notification */}
-      <Snackbar
-        open={toast.open}
-        autoHideDuration={3000}
-        onClose={handleCloseToast}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert onClose={handleCloseToast} severity={toast.severity} sx={{ width: '100%' }}>
-          {toast.message}
-        </Alert>
-      </Snackbar>
     </>
   );
 };

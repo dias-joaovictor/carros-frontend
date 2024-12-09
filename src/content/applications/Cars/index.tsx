@@ -16,12 +16,6 @@ function CarsApplication() {
   const [selectedCar, setSelectedCar] = useState<Carro | undefined>(undefined);
   const [refreshFlag, setRefreshFlag] = useState(0);
 
-  const [toastOpen, setToastOpen] = useState(true);
-
-  const handleCloseToast = () => {
-    setToastOpen(false);
-  };
-
   const handleOpenCreate = () => {
     setSelectedCar(undefined);
     setOpenForm(true);
