@@ -2,7 +2,7 @@
 
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import { Grid, Container } from '@mui/material';
+import { Grid, Container, Snackbar, Alert } from '@mui/material';
 import Footer from 'src/components/Footer';
 import { useState } from 'react';
 
@@ -15,6 +15,12 @@ function CarsApplication() {
   const [openForm, setOpenForm] = useState(false);
   const [selectedCar, setSelectedCar] = useState<Carro | undefined>(undefined);
   const [refreshFlag, setRefreshFlag] = useState(0);
+
+  const [toastOpen, setToastOpen] = useState(true);
+
+  const handleCloseToast = () => {
+    setToastOpen(false);
+  };
 
   const handleOpenCreate = () => {
     setSelectedCar(undefined);
