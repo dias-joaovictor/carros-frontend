@@ -67,9 +67,7 @@ function Header() {
         divider={<Divider orientation="vertical" flexItem />}
         alignItems="center"
         spacing={2}
-      >
-        <HeaderMenu />
-      </Stack>
+      />
       <Box display="flex" alignItems="center">
         <HeaderButtons />
         <HeaderUserbox />
