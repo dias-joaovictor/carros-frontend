@@ -30,6 +30,9 @@ const Messenger = Loader(
 const Transactions = Loader(
   lazy(() => import('src/content/applications/Transactions'))
 );
+const Cars = Loader(
+  lazy(() => import('src/content/applications/Cars'))
+);
 const UserProfile = Loader(
   lazy(() => import('src/content/applications/Users/profile'))
 );
@@ -77,46 +80,64 @@ const StatusMaintenance = Loader(
 );
 
 const routes: RouteObject[] = [
+  // {
+  //   path: '',
+  //   element: <SidebarLayout />,
+  //   children: [
+  //     {
+  //       path: '/',
+  //       element: <Overview />
+  //     },
+  //     {
+  //       path: 'overview',
+  //       element: <Navigate to="/" replace />
+  //     },
+  //     {
+  //       path: 'status',
+  //       children: [
+  //         {
+  //           path: '',
+  //           element: <Navigate to="404" replace />
+  //         },
+  //         {
+  //           path: '404',
+  //           element: <Status404 />
+  //         },
+  //         {
+  //           path: '500',
+  //           element: <Status500 />
+  //         },
+  //         {
+  //           path: 'maintenance',
+  //           element: <StatusMaintenance />
+  //         },
+  //         {
+  //           path: 'coming-soon',
+  //           element: <StatusComingSoon />
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: '*',
+  //       element: <Status404 />
+  //     }
+  //   ]
+  // },
   {
-    path: '',
-    element: <BaseLayout />,
+    path: '/',
+    element: <SidebarLayout />,
     children: [
       {
-        path: '/',
-        element: <Overview />
+        path: '',
+        element: <Navigate to="crypto" replace />
       },
       {
-        path: 'overview',
-        element: <Navigate to="/" replace />
+        path: 'crypto',
+        element: <Crypto />
       },
       {
-        path: 'status',
-        children: [
-          {
-            path: '',
-            element: <Navigate to="404" replace />
-          },
-          {
-            path: '404',
-            element: <Status404 />
-          },
-          {
-            path: '500',
-            element: <Status500 />
-          },
-          {
-            path: 'maintenance',
-            element: <StatusMaintenance />
-          },
-          {
-            path: 'coming-soon',
-            element: <StatusComingSoon />
-          }
-        ]
-      },
-      {
-        path: '*',
-        element: <Status404 />
+        path: 'messenger',
+        element: <Messenger />
       }
     ]
   },
@@ -144,11 +165,15 @@ const routes: RouteObject[] = [
     children: [
       {
         path: '',
-        element: <Navigate to="transactions" replace />
+        element: <Navigate to="cars" replace />
       },
       {
         path: 'transactions',
         element: <Transactions />
+      },
+      {
+        path: 'cars',
+        element: <Cars />
       },
       {
         path: 'profile',
