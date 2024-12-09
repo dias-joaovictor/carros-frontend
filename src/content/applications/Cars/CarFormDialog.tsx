@@ -97,12 +97,11 @@ const CarFormDialog: FC<CarFormDialogProps> = ({ open, onClose, onCarSaved, car 
 
     saveOperation
       .then(() => {
-        onCarSaved(); // Notify the parent to refresh the list if needed
-        let message = `Car ${formData.id ? 'updated' : 'saved'} successfully!`;
+        onCarSaved();
         setToast({
           open: true,
-          message: message,
-          severity: 'success'
+          message: `Car ${formData.id ? 'updated' : 'saved'} successfully!`,
+          severity: 'success',
         });
         onClose();
       })
@@ -122,7 +121,7 @@ const CarFormDialog: FC<CarFormDialogProps> = ({ open, onClose, onCarSaved, car 
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    setConfirmationOpen(true); // Open confirmation dialog
+    setConfirmationOpen(true); // Open confirmation dialog for save
   };
 
   const isEditMode = !!car;
@@ -217,7 +216,7 @@ const CarFormDialog: FC<CarFormDialogProps> = ({ open, onClose, onCarSaved, car 
         </form>
       </Dialog>
 
-      {/* Confirmation Dialog */}
+      {/* Confirmation Dialog for Save */}
       <Dialog open={confirmationOpen} onClose={() => setConfirmationOpen(false)}>
         <DialogTitle>Confirm Save</DialogTitle>
         <DialogContent>Are you sure you want to save the changes?</DialogContent>
