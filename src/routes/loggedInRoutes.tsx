@@ -3,7 +3,6 @@ import { RouteObject } from 'react-router';
 
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import Messenger from '../content/applications/Messenger';
-import Crypto from '../content/dashboards/Crypto';
 import Buttons from '../content/pages/Components/Buttons';
 import Modals from '../content/pages/Components/Modals';
 import Accordions from '../content/pages/Components/Accordions';
@@ -24,61 +23,10 @@ function UserSettings() {
 }
 
 const loggedInRoutes: RouteObject[] = [
-  // {
-  //   path: '',
-  //   element: <SidebarLayout />,
-  //   children: [
-  //     {
-  //       path: '/',
-  //       element: <Overview />
-  //     },
-  //     {
-  //       path: 'overview',
-  //       element: <Navigate to="/" replace />
-  //     },
-  //     {
-  //       path: 'status',
-  //       children: [
-  //         {
-  //           path: '',
-  //           element: <Navigate to="404" replace />
-  //         },
-  //         {
-  //           path: '404',
-  //           element: <Status404 />
-  //         },
-  //         {
-  //           path: '500',
-  //           element: <Status500 />
-  //         },
-  //         {
-  //           path: 'maintenance',
-  //           element: <StatusMaintenance />
-  //         },
-  //         {
-  //           path: 'coming-soon',
-  //           element: <StatusComingSoon />
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       path: '*',
-  //       element: <Status404 />
-  //     }
-  //   ]
-  // },
   {
     path: '/',
     element: <SidebarLayout />,
     children: [
-      {
-        path: '',
-        element: <Navigate to="crypto" replace />
-      },
-      {
-        path: 'crypto',
-        element: <Crypto />
-      },
       {
         path: 'messenger',
         element: <Messenger />
@@ -92,10 +40,6 @@ const loggedInRoutes: RouteObject[] = [
       {
         path: '',
         element: <Navigate to="crypto" replace />
-      },
-      {
-        path: 'crypto',
-        element: <Crypto />
       },
       {
         path: 'messenger',
