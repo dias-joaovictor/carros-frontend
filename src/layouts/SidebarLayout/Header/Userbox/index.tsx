@@ -60,15 +60,10 @@ const UserBoxDescription = styled(Typography)(
 );
 
 function HeaderUserbox() {
-  const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg',
-    jobtitle: 'Project Manager'
-  };
 
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
-  const { logout } = useAuth(); // Use logout from AuthContext
+  const { logout, userContent } = useAuth(); // Use logout from AuthContext
   const navigate = useNavigate(); // Use navigate for redirection
 
   const handleOpen = (): void => {
@@ -87,12 +82,12 @@ function HeaderUserbox() {
   return (
     <>
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
-        <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+        <Avatar variant="rounded" alt={userContent.nome} src={userContent.avatar} />
         <Hidden mdDown>
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userContent.nome}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userContent.cargo}
             </UserBoxDescription>
           </UserBoxText>
         </Hidden>
@@ -114,33 +109,15 @@ function HeaderUserbox() {
         }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          <Avatar variant="rounded" alt={userContent.nome} src={userContent.avatar} />
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userContent.nome}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userContent.cargo}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>
         <Divider sx={{ mb: 0 }} />
-        <List sx={{ p: 1 }} component="nav">
-          <ListItem button to="/management/profile/details" component={NavLink}>
-            <AccountBoxTwoToneIcon fontSize="small" />
-            <ListItemText primary="My Profile" />
-          </ListItem>
-          <ListItem button to="/dashboards/messenger" component={NavLink}>
-            <InboxTwoToneIcon fontSize="small" />
-            <ListItemText primary="Messenger" />
-          </ListItem>
-          <ListItem
-            button
-            to="/management/profile/settings"
-            component={NavLink}
-          >
-            <AccountTreeTwoToneIcon fontSize="small" />
-            <ListItemText primary="Account Settings" />
-          </ListItem>
-        </List>
         <Divider />
         <Box sx={{ m: 1 }}>
           <Button color="primary" fullWidth onClick={handleSignOut}>

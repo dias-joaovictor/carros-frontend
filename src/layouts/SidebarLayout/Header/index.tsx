@@ -69,7 +69,6 @@ function Header() {
         spacing={2}
       />
       <Box display="flex" alignItems="center">
-        <HeaderButtons />
         <HeaderUserbox />
         <Box
           component="span"
