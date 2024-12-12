@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { authenticationService } from './AuthenticationService';
 
 export interface CrudServiceOptions {
   baseURL?: string;
@@ -17,12 +18,26 @@ export class CrudService<T, ID = number> {
 
   protected resource: string;
 
-  constructor(resource: string, options?: CrudServiceOptions) {
-    this.axios = options?.axiosInstance ?? axios.create({
-      baseURL: options?.baseURL ?? '/api',
-      headers: options?.headers ?? {}
-    });
+  constructor(baseUrl: string, resource: string) {
     this.resource = resource;
+
+    this.axios = axios.create({
+      baseURL: baseUrl,
+    });
+
+    // Add an interceptor to attach the token
+    this.axios.interceptors.request.use(
+      (config) => {
+        const token = authenticationService.getToken(); // Fetch the token from localStorage
+        if (token) {
+          config.headers['Authorization'] = `Bearer ${token}`; // Add token as a Bearer token
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
   }
 
   public async getAll(params?: Record<string, unknown>): Promise<T[]> {
