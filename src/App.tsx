@@ -6,9 +6,17 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import { CssBaseline } from '@mui/material';
 import ThemeProvider from './theme/ThemeProvider';
+import loggedInRoutes from './routes/loggedInRoutes';
+import loginRoutes from './routes/loginRoutes';
+import { useAuth } from './contexts/AuthContext';
 
 function App() {
-  const content = useRoutes(router);
+
+  const { authenticated } = useAuth();
+
+  // Dynamically set routes based on authentication status
+  const routes = authenticated ? loggedInRoutes : loginRoutes;
+  const content = useRoutes(routes);
 
   return (
     <ThemeProvider>

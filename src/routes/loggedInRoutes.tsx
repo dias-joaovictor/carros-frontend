@@ -1,88 +1,29 @@
-import { Suspense, lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import { RouteObject } from 'react-router';
 
 import SidebarLayout from 'src/layouts/SidebarLayout';
-import BaseLayout from 'src/layouts/BaseLayout';
+import Messenger from '../content/applications/Messenger';
+import Crypto from '../content/dashboards/Crypto';
+import Buttons from '../content/pages/Components/Buttons';
+import Modals from '../content/pages/Components/Modals';
+import Accordions from '../content/pages/Components/Accordions';
+import Tabs from '../content/pages/Components/Tabs';
+import Badges from '../content/pages/Components/Badges';
+import Tooltips from '../content/pages/Components/Tooltips';
+import Avatars from '../content/pages/Components/Avatars';
+import Cards from '../content/pages/Components/Cards';
+import Forms from '../content/pages/Components/Forms';
+import Cars from '../content/applications/Cars';
 
-import SuspenseLoader from 'src/components/SuspenseLoader';
-import { useAuth } from './contexts/AuthContext';
-import Login from './components/Login';
+function UserProfile() {
+  return null;
+}
 
-const Loader = (Component) => (props) =>
-  (
-    <Suspense fallback={<SuspenseLoader />}>
-      <Component {...props} />
-    </Suspense>
-  );
+function UserSettings() {
+  return null;
+}
 
-// Pages
-
-const Overview = Loader(lazy(() => import('src/content/overview')));
-
-// Dashboards
-
-const Crypto = Loader(lazy(() => import('src/content/dashboards/Crypto')));
-
-// Applications
-
-const Messenger = Loader(
-  lazy(() => import('src/content/applications/Messenger'))
-);
-const Transactions = Loader(
-  lazy(() => import('src/content/applications/Transactions'))
-);
-const Cars = Loader(
-  lazy(() => import('src/content/applications/Cars'))
-);
-const UserProfile = Loader(
-  lazy(() => import('src/content/applications/Users/profile'))
-);
-const UserSettings = Loader(
-  lazy(() => import('src/content/applications/Users/settings'))
-);
-
-// Components
-
-const Buttons = Loader(
-  lazy(() => import('src/content/pages/Components/Buttons'))
-);
-const Modals = Loader(
-  lazy(() => import('src/content/pages/Components/Modals'))
-);
-const Accordions = Loader(
-  lazy(() => import('src/content/pages/Components/Accordions'))
-);
-const Tabs = Loader(lazy(() => import('src/content/pages/Components/Tabs')));
-const Badges = Loader(
-  lazy(() => import('src/content/pages/Components/Badges'))
-);
-const Tooltips = Loader(
-  lazy(() => import('src/content/pages/Components/Tooltips'))
-);
-const Avatars = Loader(
-  lazy(() => import('src/content/pages/Components/Avatars'))
-);
-const Cards = Loader(lazy(() => import('src/content/pages/Components/Cards')));
-const Forms = Loader(lazy(() => import('src/content/pages/Components/Forms')));
-
-// Status
-
-const Status404 = Loader(
-  lazy(() => import('src/content/pages/Status/Status404'))
-);
-const Status500 = Loader(
-  lazy(() => import('src/content/pages/Status/Status500'))
-);
-const StatusComingSoon = Loader(
-  lazy(() => import('src/content/pages/Status/ComingSoon'))
-);
-const StatusMaintenance = Loader(
-  lazy(() => import('src/content/pages/Status/Maintenance'))
-);
-
-
-const logedInRoutes: RouteObject[] = [
+const loggedInRoutes: RouteObject[] = [
   // {
   //   path: '',
   //   element: <SidebarLayout />,
@@ -167,16 +108,12 @@ const logedInRoutes: RouteObject[] = [
     element: <SidebarLayout />,
     children: [
       {
-        path: '',
-        element: <Navigate to="cars" replace />
-      },
-      {
-        path: 'transactions',
-        element: <Transactions />
-      },
-      {
         path: 'cars',
         element: <Cars />
+      },
+      {
+        path: '',
+        element: <Navigate to="cars" replace />
       },
       {
         path: 'profile',
@@ -245,27 +182,4 @@ const logedInRoutes: RouteObject[] = [
   }
 ];
 
-const loginRoutes: RouteObject[] = [
-  {
-    path: '/login',
-    element: <Login />
-  },
-  {
-    path: '*',
-    element: <Navigate to="/login" replace />
-  }
-]
-
-
-const routes = (): RouteObject[] => {
-  const { authenticated } = useAuth();
-
-  if (!authenticated) {
-    return loginRoutes;
-  }
-
-  return logedInRoutes;
-}
-
-
-export default routes();
+export default loggedInRoutes;
