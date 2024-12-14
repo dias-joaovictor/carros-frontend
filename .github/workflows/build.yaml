@@ -15,14 +15,14 @@ on:
 
 jobs:
   build-internal:
-    uses: ./.github/workflows/parent-build.yml
+    uses: ./.github/workflows/parent-build.yaml
     with:
       backend-url: "https://cars-backend.at-dias.cloud"
       docker-tag: "internal"
       docker-repository: cars-frontend
 
   build-external:
-    uses: ./.github/workflows/parent-build.yml
+    uses: ./.github/workflows/parent-build.yaml
     with:
       backend-url: "https://cars-backend-external.at-dias.cloud"
       docker-tag: "external"
