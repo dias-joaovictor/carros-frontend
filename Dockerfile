@@ -1,5 +1,6 @@
 FROM nginx:latest
 
+COPY infra/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY build /usr/share/nginx/html
 
 EXPOSE 80
