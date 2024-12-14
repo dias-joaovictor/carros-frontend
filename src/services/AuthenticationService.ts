@@ -14,10 +14,13 @@ class AuthenticationService {
 
     this.axios.interceptors.request.use(
       (config) => {
-        const cookieName = "CF_Authorization"; // Replace with your cookie name
-        const cookieValue = CookieManager.getCookie(cookieName);
 
+        const cookieName = "CF_Authorization";
+        const cookieValue = CookieManager.getCookie(cookieName);
+        console.log(CookieManager.listAllCookies())
+        console.log("Getting cookie")
         if (cookieValue) {
+          console.log("Cookie found")
           config.headers['Cookie'] = `${cookieName}=${cookieValue}`
         }
 
