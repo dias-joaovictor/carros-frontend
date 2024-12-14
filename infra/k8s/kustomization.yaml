@@ -3,13 +3,12 @@ kind: Kustomization
 metadata:
   name: arbitrary
 
-# Example configuration for the webserver
-# at https://github.com/monopole/hello
-labels:
-  - pairs:
-      app: hello
-
 resources:
-  - deployment.yaml
-  - service.yaml
-  - ingress.yaml
+  - deployment-internal.yaml
+  - deployment-external.yaml
+
+  - service-internal.yaml
+  - service-external.yaml
+
+  - ingress-internal.yaml
+  - ingress-external.yaml

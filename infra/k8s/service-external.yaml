@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cars-frontend-external-svc
+  namespace: cars-frontend
+spec:
+  selector:
+    app.kubernetes.io/instance: cars-frontend-external
+    app.kubernetes.io/name: cars-frontend-external
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+  type: ClusterIP
