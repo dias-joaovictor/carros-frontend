@@ -15,16 +15,16 @@ class AuthenticationService {
     this.axios.interceptors.request.use(
       (config) => {
 
-        // const cookieName = "CF_Authorization";
-        // const cookieValue = CookieManager.getCookie(cookieName);
-        // console.log(CookieManager.listAllCookies())
-        // console.log("Getting cookie")
-        // if (cookieValue) {
-        //   console.log("Cookie found")
-        //   config.headers['Cookie'] = `${cookieName}=${cookieValue}`
-        // }
+        const cookieName = "CF_Authorization";
+        const cookieValue = CookieManager.getCookie(cookieName);
+        console.log(CookieManager.listAllCookies())
+        console.log("Getting cookie")
+        if (cookieValue) {
+          console.log("Cookie found")
+          config.headers['cf-access-token'] = cookieValue
+        }
 
-        config.withCredentials = true;
+        // config.withCredentials = true;
 
         return config;
       },

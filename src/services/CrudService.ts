@@ -40,7 +40,7 @@ export class CrudService<T, ID = number> {
         console.log("Getting cookie")
         if (cookieValue) {
           console.log("Cookie found")
-          config.headers['Cookie'] = `${cookieName}=${cookieValue}`
+          config.headers['cf-access-token'] = cookieValue
         }
 
         return config;
