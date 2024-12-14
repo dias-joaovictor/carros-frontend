@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cars-frontend
+  namespace: cars-frontend
+  labels:
+    app.kubernetes.io/instance: cars-frontend
+    app.kubernetes.io/name: cars-frontend
+spec:
+  revisionHistoryLimit: 2
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: cars-frontend
+      app.kubernetes.io/name: cars-frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: cars-frontend
+        app.kubernetes.io/name: cars-frontend
+    spec:
+      containers:
+        - name: cars-frontend
+          image: silverfoxjv/cars-frontend:internal
+          imagePullPolicy: Always
+          env: []
+          ports:
+            - name: http
+              containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
