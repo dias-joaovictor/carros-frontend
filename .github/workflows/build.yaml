@@ -13,8 +13,10 @@ on:
     branches:
       - master
 
+
 jobs:
   build-internal:
+    secrets: inherit
     uses: ./.github/workflows/parent-build.yaml
     with:
       backend-url: "https://cars-backend.at-dias.cloud"
@@ -22,6 +24,7 @@ jobs:
       docker-repository: cars-frontend
 
   build-external:
+    secrets: inherit
     uses: ./.github/workflows/parent-build.yaml
     with:
       backend-url: "https://cars-backend-external.at-dias.cloud"
