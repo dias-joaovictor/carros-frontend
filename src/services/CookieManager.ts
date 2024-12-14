@@ -16,6 +16,25 @@ export class CookieManager {
   }
 
   /**
+   * Get all cookies as an object
+   *
+   * @returns An object where keys are cookie names and values are cookie values
+   */
+  static listAllCookies(): Record<string, string> {
+    const cookies: Record<string, string> = {};
+
+    // Split document.cookie into individual cookies
+    document.cookie.split(";").forEach((cookie) => {
+      const [name, value] = cookie.split("=").map((part) => part.trim());
+      if (name) {
+        cookies[name] = decodeURIComponent(value || "");
+      }
+    });
+
+    return cookies;
+  }
+
+  /**
    * Set a cookie with a specified name, value, and options
    *
    * @param cookieName - The name of the cookie to set
