@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { CookieManager } from './CookieManager';
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 
@@ -10,6 +11,23 @@ class AuthenticationService {
     this.axios = axios.create({
       baseURL: baseUrl,
     });
+
+    this.axios.interceptors.request.use(
+      (config) => {
+        const cookieName = "CF_Authorization"; // Replace with your cookie name
+        const cookieValue = CookieManager.getCookie(cookieName);
+
+        if (cookieValue) {
+          config.headers['Cookie'] = `${cookieName}=${cookieValue}`
+        }
+
+        return config;
+      },
+      (error) => {
+        // Handle request error
+        return Promise.reject(error);
+      }
+    );
   }
 
   /**

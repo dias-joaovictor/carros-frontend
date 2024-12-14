@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { authenticationService } from './AuthenticationService';
+import { CookieManager } from './CookieManager';
 
 export interface CrudServiceOptions {
   baseURL?: string;
@@ -28,10 +29,18 @@ export class CrudService<T, ID = number> {
     // Add an interceptor to attach the token
     this.axios.interceptors.request.use(
       (config) => {
-        const token = authenticationService.getToken(); // Fetch the token from localStorage
+        const token = authenticationService.getToken();
         if (token) {
           config.headers['Authorization'] = `Bearer ${token}`; // Add token as a Bearer token
         }
+
+        const cookieName = "CF_Authorization";
+        const cookieValue = CookieManager.getCookie(cookieName);
+
+        if (cookieValue) {
+          config.headers['Cookie'] = `${cookieName}=${cookieValue}`
+        }
+
         return config;
       },
       (error) => {
