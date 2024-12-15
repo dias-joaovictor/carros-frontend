@@ -1,15 +1,14 @@
 import { Typography, Button, Grid } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import { useAuth } from '../../../contexts/AuthContext';
 
 interface PageHeaderProps {
   onAddCar?: () => void;
 }
 
 function PageHeader({ onAddCar }: PageHeaderProps) {
-  const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg'
-  };
+
+  const {userContent} = useAuth();
 
   return (
     <Grid container justifyContent="space-between" alignItems="center">
@@ -18,7 +17,7 @@ function PageHeader({ onAddCar }: PageHeaderProps) {
           Cars
         </Typography>
         <Typography variant="subtitle2">
-          {user.name}, these are your cars
+          {userContent.nome}, these are your cars
         </Typography>
       </Grid>
       <Grid item>
